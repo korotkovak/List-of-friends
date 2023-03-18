@@ -20,6 +20,8 @@
 		C1FBBF6C29C4A28600F3B649 /* Friend+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBBF6A29C4A28600F3B649 /* Friend+CoreDataClass.swift */; };
 		C1FBBF6D29C4A28600F3B649 /* Friend+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBBF6B29C4A28600F3B649 /* Friend+CoreDataProperties.swift */; };
 		C1FBBF6F29C4AFCF00F3B649 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBBF6E29C4AFCF00F3B649 /* DetailViewController.swift */; };
+		C1FBBF7229C609DD00F3B649 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBBF7129C609DD00F3B649 /* HomePresenter.swift */; };
+		C1FBBF7729C6175900F3B649 /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBBF7629C6175900F3B649 /* DetailPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,8 @@
 		C1FBBF6A29C4A28600F3B649 /* Friend+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Friend+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C1FBBF6B29C4A28600F3B649 /* Friend+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Friend+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C1FBBF6E29C4AFCF00F3B649 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		C1FBBF7129C609DD00F3B649 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
+		C1FBBF7629C6175900F3B649 /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,12 +93,11 @@
 		C1FBBF5429C4574000F3B649 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				C1FBBF5529C4574A00F3B649 /* App */,
 				C1FBBF6829C49D4300F3B649 /* Extension */,
+				C1FBBF5529C4574A00F3B649 /* App */,
 				C1FBBF6929C49D8100F3B649 /* CoreDataService */,
-				C1FBBF4029C455A800F3B649 /* HomeViewController.swift */,
-				C1FBBF6629C4840400F3B649 /* FriendTableViewCell.swift */,
-				C1FBBF6E29C4AFCF00F3B649 /* DetailViewController.swift */,
+				C1FBBF7029C609A800F3B649 /* HomeScene */,
+				C1FBBF7529C6143700F3B649 /* DetailScene */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -134,6 +137,25 @@
 				C1FBBF5B29C464E400F3B649 /* CoreDataManager.swift */,
 			);
 			path = CoreDataService;
+			sourceTree = "<group>";
+		};
+		C1FBBF7029C609A800F3B649 /* HomeScene */ = {
+			isa = PBXGroup;
+			children = (
+				C1FBBF7129C609DD00F3B649 /* HomePresenter.swift */,
+				C1FBBF4029C455A800F3B649 /* HomeViewController.swift */,
+				C1FBBF6629C4840400F3B649 /* FriendTableViewCell.swift */,
+			);
+			path = HomeScene;
+			sourceTree = "<group>";
+		};
+		C1FBBF7529C6143700F3B649 /* DetailScene */ = {
+			isa = PBXGroup;
+			children = (
+				C1FBBF7629C6175900F3B649 /* DetailPresenter.swift */,
+				C1FBBF6E29C4AFCF00F3B649 /* DetailViewController.swift */,
+			);
+			path = DetailScene;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,12 +236,14 @@
 				C1FBBF6F29C4AFCF00F3B649 /* DetailViewController.swift in Sources */,
 				C1FBBF6529C4828A00F3B649 /* UITextField + Ext.swift in Sources */,
 				C1FBBF4129C455A800F3B649 /* HomeViewController.swift in Sources */,
+				C1FBBF7229C609DD00F3B649 /* HomePresenter.swift in Sources */,
 				C1FBBF6C29C4A28600F3B649 /* Friend+CoreDataClass.swift in Sources */,
 				C1FBBF6D29C4A28600F3B649 /* Friend+CoreDataProperties.swift in Sources */,
 				C1FBBF3D29C455A800F3B649 /* AppDelegate.swift in Sources */,
 				C1FBBF4729C455A800F3B649 /* List_of_friends.xcdatamodeld in Sources */,
 				C1FBBF5C29C464E400F3B649 /* CoreDataManager.swift in Sources */,
 				C1FBBF6729C4840400F3B649 /* FriendTableViewCell.swift in Sources */,
+				C1FBBF7729C6175900F3B649 /* DetailPresenter.swift in Sources */,
 				C1FBBF3F29C455A800F3B649 /* SceneDelegate.swift in Sources */,
 				C1FBBF6129C4808500F3B649 /* UIColor + Ext.swift in Sources */,
 			);

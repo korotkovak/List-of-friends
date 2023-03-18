@@ -10,7 +10,6 @@ import Foundation
 import CoreData
 
 extension Friend {
-
     @NSManaged public var name: String?
     @NSManaged public var date: String?
     @NSManaged public var gender: String?
@@ -18,5 +17,4 @@ extension Friend {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Friend> {
         return NSFetchRequest<Friend>(entityName: "Friend")
     }
-
 }

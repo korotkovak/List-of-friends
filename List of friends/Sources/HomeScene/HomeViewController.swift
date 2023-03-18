@@ -8,7 +8,13 @@
 import UIKit
 import CoreData
 
-final class HomeViewController: UIViewController {
+protocol HomeViewProtocol: AnyObject {
+    func showFriends()
+}
+
+final class HomeViewController: UIViewController, HomeViewProtocol {
+
+    var presenter: HomeViewPresenterProtocol?
 
     // MARK: - Outlets
 
@@ -20,17 +26,6 @@ final class HomeViewController: UIViewController {
         tableView.delegate = self
         return tableView
     }()
-
-//    private lazy var collectionView: UICollectionView = {
-//        let layout = UICollectionViewFlowLayout()
-//        let collectionView = UICollectionView(frame: .zero,
-//                                              collectionViewLayout: layout)
-//        collectionView.register(FriendTableViewCell.self,
-//                                forCellWithReuseIdentifier: FriendTableViewCell.identifier)
-//        collectionView.dataSource = self
-//        collectionView.delegate = self
-//        return collectionView
-//    }()
 
     private lazy var textField: UITextField = {
         let textField = UITextField()
@@ -52,44 +47,29 @@ final class HomeViewController: UIViewController {
         return button
     }()
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        showFriends()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         setupHeirarchy()
-        fetchFriends()
         setupKeyboard()
         setupIcons()
-
         setupLayout()
+        presenter?.fetchFriends()
     }
 
-    func fetchFriends() {
-        do {
-            CoreDataManager.shared.friends = try CoreDataManager.shared.context.fetch(Friend.fetchRequest())
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        } catch {
-            print(error)
-        }
+    func showFriends() {
+        tableView.reloadData()
     }
 
     @objc private func addFriendInTable() {
-        if let text = textField.text {
-            let newFriend = Friend(context: CoreDataManager.shared.context)
-            newFriend.name = text
-            newFriend.gender = "Male"
-            newFriend.date = "01.01.2023"
-
-            do {
-                try CoreDataManager.shared.context.save()
-            } catch {
-                print(error)
-            }
-
-            textField.text = ""
-            fetchFriends()
-        }
+        guard let text = textField.text else { return }
+        presenter?.addFriend(name: text)
+        textField.text = ""
     }
 
     // MARK: - Setup
@@ -137,7 +117,7 @@ final class HomeViewController: UIViewController {
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return CoreDataManager.shared.friends?.count ?? 0
+        return presenter?.getFreindsCount() ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -147,8 +127,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         ) as? FriendTableViewCell else {
             return UITableViewCell()
         }
-
-        let friend = CoreDataManager.shared.friends?[indexPath.row]
+        let friend = presenter?.getFriend(indexPath.row)
         cell.textLabel?.text = friend?.name
         return cell
     }
@@ -157,49 +136,20 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                    commit editingStyle: UITableViewCell.EditingStyle,
                    forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            tableView.beginUpdates()
-
-            if let friend = CoreDataManager.shared.friends?[indexPath.row] {
-                CoreDataManager.shared.context.delete(friend)
-                tableView.deleteRows(at: [indexPath], with: .fade)
-
-                do {
-                    try CoreDataManager.shared.context.save()
-                } catch {
-                    print(error)
-                }
-
-                fetchFriends()
-
-            }
-            tableView.endUpdates()
+            presenter?.deleteFriend(indexPath.row)
         }
     }
 
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        if let friend = presenter?.getFriend(indexPath.row) {
+            let detailViewController = DetailViewController()
+            
 
-        let detailViewController = DetailViewController()
-        let friend = CoreDataManager.shared.friends?[indexPath.row]
-
-        detailViewController.fillSettings(with: friend)
-
-        navigationController?.pushViewController(detailViewController,
-                                                 animated: true)
-
-//        friend?.name = detailViewController.nameTextField.text
-//
-//        do {
-//            try CoreDataManager.shared.context.save()
-//
-//        } catch {
-//            print(error)
-//        }
-//
-//        fetchFriends()
-
-
+            detailViewController.friend = friend
+            navigationController?.pushViewController(detailViewController,
+                                                     animated: true)
+        }
 
     }
 }

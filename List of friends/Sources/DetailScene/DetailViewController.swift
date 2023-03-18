@@ -7,7 +7,21 @@
 
 import UIKit
 
-final class DetailViewController: UIViewController {
+protocol DetailViewProtocol: AnyObject {
+    
+}
+
+final class DetailViewController: UIViewController, DetailViewProtocol {
+
+    var presenter: DetailViewPresenterProtocol?
+
+    var friend: Friend? {
+        didSet {
+            nameTextField.text = friend?.name
+            dateTextField.text = friend?.date
+            genderMenuTextField.text = friend?.gender
+        }
+    }
 
     private var isEditingButton = false {
         willSet {
@@ -287,14 +301,7 @@ final class DetailViewController: UIViewController {
         friend?.name = nameTextField.text
         friend?.date = dateTextField.text
         friend?.gender = genderMenuTextField.text
-
-        do {
-            if CoreDataManager.shared.context.hasChanges {
-                try CoreDataManager.shared.context.save()
-            }
-        } catch {
-            print(error.localizedDescription)
-        }
+        presenter?.updateFriend()
     }
 
     @objc private func editAndSaveButtonPressed() {
@@ -316,18 +323,8 @@ final class DetailViewController: UIViewController {
         }
     }
 
-    var friend: Friend?
-
     @objc private func actionForBackButton() {
         navigationController?.popViewController(animated: true)
-    }
-
-    func fillSettings(with model: Friend?) {
-        guard let model = model else { return }
-        nameTextField.text = model.name
-        dateTextField.text = model.date
-        genderMenuTextField.text = model.gender
-        friend = model
     }
 }
 
