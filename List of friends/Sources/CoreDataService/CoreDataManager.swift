@@ -11,6 +11,8 @@ import CoreData
 class CoreDataManager {
     static let shared = CoreDataManager()
 
+    var friends: [Friend]?
+
     private init() {}
 
     private lazy var persistentContainer: NSPersistentContainer = {
@@ -27,30 +29,6 @@ class CoreDataManager {
         return persistentContainer.viewContext
     }()
 
-    func entityForName(_ entityName: String) -> NSEntityDescription {
-        guard let entityDescription = NSEntityDescription.entity(forEntityName: entityName,
-                                                                 in: context)
-        else {
-            return NSEntityDescription()
-        }
-        return entityDescription
-    }
-
-    func fetchedResultsController(
-        entityName: String,
-        keyForSort: String
-    ) -> NSFetchedResultsController<NSFetchRequestResult> {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
-        let sortDescriptor = NSSortDescriptor(key: keyForSort, ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        let fetchedResultsController = NSFetchedResultsController<NSFetchRequestResult>(
-            fetchRequest: fetchRequest,
-            managedObjectContext: CoreDataManager.shared.context,
-            sectionNameKeyPath: nil, cacheName: nil
-        )
-        return fetchedResultsController
-    }
-
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -62,4 +40,5 @@ class CoreDataManager {
             }
         }
     }
+
 }

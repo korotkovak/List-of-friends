@@ -40,10 +40,9 @@ final class DetailViewController: UIViewController {
         return view
     }()
 
-    private lazy var nameTextField: UITextField = {
+     lazy var nameTextField: UITextField = {
         let textField = UITextField()
         textField.isUserInteractionEnabled = false
-        textField.text = "Name"
         textField.layer.cornerRadius = 10
         textField.backgroundColor = UIColor().hexStringToUIColor(hex: "F8F8F8")
         return textField
@@ -66,8 +65,6 @@ final class DetailViewController: UIViewController {
 
     private lazy var dateTextField: UITextField = {
         let textField = UITextField()
-        let date = datePicker.date
-        textField.text = convertDateToString(date: date)
         textField.isUserInteractionEnabled = false
         textField.layer.cornerRadius = 10
         textField.backgroundColor = UIColor().hexStringToUIColor(hex: "F8F8F8")
@@ -286,6 +283,20 @@ final class DetailViewController: UIViewController {
         editAndSaveButton.backgroundColor = .white
     }
 
+    func updateFriend() {
+        friend?.name = nameTextField.text
+        friend?.date = dateTextField.text
+        friend?.gender = genderMenuTextField.text
+
+        do {
+            if CoreDataManager.shared.context.hasChanges {
+                try CoreDataManager.shared.context.save()
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+
     @objc private func editAndSaveButtonPressed() {
         if isEditingButton {
             let date = datePicker.date
@@ -295,6 +306,7 @@ final class DetailViewController: UIViewController {
             genderButton.isUserInteractionEnabled = false
             genderImage.isHidden = true
             isEditingButton = false
+            updateFriend()
         } else {
             nameTextField.isUserInteractionEnabled = true
             datePicker.isHidden = false
@@ -304,8 +316,18 @@ final class DetailViewController: UIViewController {
         }
     }
 
+    var friend: Friend?
+
     @objc private func actionForBackButton() {
         navigationController?.popViewController(animated: true)
+    }
+
+    func fillSettings(with model: Friend?) {
+        guard let model = model else { return }
+        nameTextField.text = model.name
+        dateTextField.text = model.date
+        genderMenuTextField.text = model.gender
+        friend = model
     }
 }
 

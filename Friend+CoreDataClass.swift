@@ -11,8 +11,8 @@ import CoreData
 
 @objc(Friend)
 public class Friend: NSManagedObject {
-    convenience init() {
-        self.init(entity: CoreDataManager.shared.entityForName("Friend"),
-                  insertInto: CoreDataManager.shared.context)
-    }
+//    convenience init() {
+//        self.init(entity: CoreDataManager.shared.entityForName("Friend"),
+//                  insertInto: CoreDataManager.shared.context)
+//    }
 }
