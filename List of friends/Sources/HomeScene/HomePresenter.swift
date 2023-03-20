@@ -8,6 +8,7 @@
 import Foundation
 
 protocol HomeViewPresenterProtocol {
+    init(view: HomeViewProtocol, serviceCoreData: ServiceCoreData)
     func addFriend(name: String)
     func fetchFriends()
     func getFreindsCount() -> Int
@@ -25,7 +26,7 @@ final class HomePresenter: HomeViewPresenterProtocol {
     }
 
     func addFriend(name: String) {
-        serviceCoreData?.addFriend(name: name)
+        serviceCoreData?.addFriend(name: name, gender: "Male", date: "01.01.1976")
         view?.showFriends()
     }
 

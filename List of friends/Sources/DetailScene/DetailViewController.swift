@@ -8,20 +8,14 @@
 import UIKit
 
 protocol DetailViewProtocol: AnyObject {
-    
+    func fillSettings(with model: Friend?)
+//    func updateFriend(for model: Friend?)
+    func updateFriend()
 }
 
 final class DetailViewController: UIViewController, DetailViewProtocol {
 
     var presenter: DetailViewPresenterProtocol?
-
-    var friend: Friend? {
-        didSet {
-            nameTextField.text = friend?.name
-            dateTextField.text = friend?.date
-            genderMenuTextField.text = friend?.gender
-        }
-    }
 
     private var isEditingButton = false {
         willSet {
@@ -68,13 +62,6 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .compact
         return datePicker
-    }()
-
-    private lazy var dateFormatter: DateFormatter = {
-        let formattor = DateFormatter()
-        formattor.dateStyle = .medium
-        formattor.timeStyle = .none
-        return formattor
     }()
 
     private lazy var dateTextField: UITextField = {
@@ -163,7 +150,13 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
         setupHeirarchy()
         setupKeyboard()
         setupLayout()
+        presenter?.setFriend()
     }
+
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        CoreDataManager.shared.saveContext()
+//    }
 
     // MARK: - Setup
 
@@ -276,12 +269,6 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
         }
     }
 
-    private func convertDateToString(date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.YYYY"
-        return dateFormatter.string(from: date)
-    }
-
     private func saveButton() {
         editAndSaveButton.setTitle("Save", for: .normal)
         editAndSaveButton.setTitleColor(.white, for: .normal)
@@ -297,17 +284,46 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
         editAndSaveButton.backgroundColor = .white
     }
 
+    func fillSettings(with model: Friend?) {
+        nameTextField.text = model?.name
+        dateTextField.text = model?.date
+        genderMenuTextField.text = model?.gender
+        guard let date = model?.date else { return }
+        datePicker.date = convertStringToDate(string: date)
+    }
+
     func updateFriend() {
-        friend?.name = nameTextField.text
-        friend?.date = dateTextField.text
-        friend?.gender = genderMenuTextField.text
-        presenter?.updateFriend()
+//        model?.name = nameTextField.text
+//        model?.date = dateTextField.text
+//        model?.gender = genderMenuTextField.text
+        guard let name = nameTextField.text,
+                let date = dateTextField.text,
+                let gender = genderMenuTextField.text,
+              let friend = presenter?.friend
+        else { return }
+        print(name, date, gender)
+        presenter?.updateFriend(friend: friend, name: name, date: date, gender: gender)
+    }
+
+    func convertDateToString(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        return dateFormatter.string(from: date)
+    }
+
+    func convertStringToDate(string: String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        dateFormatter.date(from: string)
+        guard let dateString =  dateFormatter.date(from: string) else {
+            return Date()
+        }
+        return dateString
     }
 
     @objc private func editAndSaveButtonPressed() {
         if isEditingButton {
-            let date = datePicker.date
-            dateTextField.text = convertDateToString(date: date)
+            dateTextField.text = convertDateToString(date: datePicker.date)
             nameTextField.isUserInteractionEnabled = false
             datePicker.isHidden = true
             genderButton.isUserInteractionEnabled = false

@@ -22,6 +22,7 @@
 		C1FBBF6F29C4AFCF00F3B649 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBBF6E29C4AFCF00F3B649 /* DetailViewController.swift */; };
 		C1FBBF7229C609DD00F3B649 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBBF7129C609DD00F3B649 /* HomePresenter.swift */; };
 		C1FBBF7729C6175900F3B649 /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBBF7629C6175900F3B649 /* DetailPresenter.swift */; };
+		C1FBBF7929C8301400F3B649 /* ModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBBF7829C8301400F3B649 /* ModuleBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		C1FBBF6E29C4AFCF00F3B649 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		C1FBBF7129C609DD00F3B649 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 		C1FBBF7629C6175900F3B649 /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
+		C1FBBF7829C8301400F3B649 /* ModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,8 +95,9 @@
 		C1FBBF5429C4574000F3B649 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				C1FBBF6829C49D4300F3B649 /* Extension */,
 				C1FBBF5529C4574A00F3B649 /* App */,
+				C1FBBF6829C49D4300F3B649 /* Extension */,
+				C1FBBF7A29C83D2900F3B649 /* Builder */,
 				C1FBBF6929C49D8100F3B649 /* CoreDataService */,
 				C1FBBF7029C609A800F3B649 /* HomeScene */,
 				C1FBBF7529C6143700F3B649 /* DetailScene */,
@@ -156,6 +159,14 @@
 				C1FBBF6E29C4AFCF00F3B649 /* DetailViewController.swift */,
 			);
 			path = DetailScene;
+			sourceTree = "<group>";
+		};
+		C1FBBF7A29C83D2900F3B649 /* Builder */ = {
+			isa = PBXGroup;
+			children = (
+				C1FBBF7829C8301400F3B649 /* ModuleBuilder.swift */,
+			);
+			path = Builder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,6 +255,7 @@
 				C1FBBF5C29C464E400F3B649 /* CoreDataManager.swift in Sources */,
 				C1FBBF6729C4840400F3B649 /* FriendTableViewCell.swift in Sources */,
 				C1FBBF7729C6175900F3B649 /* DetailPresenter.swift in Sources */,
+				C1FBBF7929C8301400F3B649 /* ModuleBuilder.swift in Sources */,
 				C1FBBF3F29C455A800F3B649 /* SceneDelegate.swift in Sources */,
 				C1FBBF6129C4808500F3B649 /* UIColor + Ext.swift in Sources */,
 			);

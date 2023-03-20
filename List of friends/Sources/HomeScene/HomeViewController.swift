@@ -49,6 +49,7 @@ final class HomeViewController: UIViewController, HomeViewProtocol {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        // при каждом открыте главного экрана срабатывает обновление таблицы
         showFriends()
     }
 
@@ -59,6 +60,7 @@ final class HomeViewController: UIViewController, HomeViewProtocol {
         setupKeyboard()
         setupIcons()
         setupLayout()
+        // при запуске приложения я загружаю из модели своих пользователей
         presenter?.fetchFriends()
     }
 
@@ -68,6 +70,7 @@ final class HomeViewController: UIViewController, HomeViewProtocol {
 
     @objc private func addFriendInTable() {
         guard let text = textField.text else { return }
+        // добавляю друзей в модель с нужных контекстом и сохраняю контекст
         presenter?.addFriend(name: text)
         textField.text = ""
     }
@@ -143,14 +146,11 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if let friend = presenter?.getFriend(indexPath.row) {
-            let detailViewController = DetailViewController()
-            
-
-            detailViewController.friend = friend
+            // доставю по индекусу пользователя на которого нажала и передаю его в детаил вью
+            let detailViewController = ModuleBuilder.createDetailModule(with: friend)
             navigationController?.pushViewController(detailViewController,
                                                      animated: true)
         }
-
     }
 }
 

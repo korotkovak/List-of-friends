@@ -10,11 +10,11 @@ import CoreData
 
 protocol ServiceCoreData {
     func fetchFriends()
-    func addFriend(name: String)
+    func addFriend(name: String, gender: String, date: String)
     func getFriendsCount() -> Int
     func getFriend(_ index: Int) -> Friend?
     func deleteFriend(_ index: Int)
-    func updateFriend()
+    func updateFriend(friend: Friend, name: String?, date: String?, gender: String?)
 }
 
 class CoreDataManager: ServiceCoreData {
@@ -36,7 +36,7 @@ class CoreDataManager: ServiceCoreData {
         return persistentContainer.viewContext
     }()
 
-    private func saveContext () {
+     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
@@ -49,18 +49,19 @@ class CoreDataManager: ServiceCoreData {
     }
 
     func fetchFriends() {
+        let fetchRequest: NSFetchRequest<Friend> = Friend.fetchRequest()
         do {
-            friends = try context.fetch(Friend.fetchRequest())
+            friends = try context.fetch(fetchRequest)
         } catch {
             print(error)
         }
     }
 
-    func addFriend(name: String) {
+    func addFriend(name: String, gender: String, date: String) {
         let friend = Friend(context: context)
         friend.name = name
-        friend.gender = "Male"
-        friend.date = "01.01.2023"
+        friend.gender = gender
+        friend.date = date
 
         do {
             try context.save()
@@ -89,11 +90,25 @@ class CoreDataManager: ServiceCoreData {
         }
     }
 
-    func updateFriend() {
+//    func updateFriend() {
+//        if context.hasChanges {
+//            do {
+//                try context.save()
+//            } catch {
+//                print(error.localizedDescription)
+//            }
+//        }
+//    }
+
+    func updateFriend(friend: Friend, name: String?, date: String?, gender: String?) {
+        friend.name = name
+        friend.date = date
+        friend.gender = gender
+        print(name, gender, date)
+        // тут я эти данные
         do {
-            if context.hasChanges {
-                try context.save()
-            }
+            try context.save()
+//            fetchFriends()
         } catch {
             print(error.localizedDescription)
         }
