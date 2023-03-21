@@ -8,14 +8,23 @@
 import UIKit
 
 protocol DetailViewProtocol: AnyObject {
-    func fillSettings(with model: Friend?)
-//    func updateFriend(for model: Friend?)
-    func updateFriend()
+    var friend: Friend? { get set }
+    func updateFriendInformation()
 }
 
 final class DetailViewController: UIViewController, DetailViewProtocol {
 
     var presenter: DetailViewPresenterProtocol?
+
+    var friend: Friend? {
+        didSet {
+            nameTextField.text = friend?.name
+            genderMenuTextField.text = friend?.gender
+            dateTextField.text = friend?.dateOfBirth
+            guard let date = friend?.dateOfBirth else { return }
+            datePicker.date = String().convertStringToDate(string: date)
+        }
+    }
 
     private var isEditingButton = false {
         willSet {
@@ -48,7 +57,7 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
         return view
     }()
 
-     lazy var nameTextField: UITextField = {
+    private lazy var nameTextField: UITextField = {
         let textField = UITextField()
         textField.isUserInteractionEnabled = false
         textField.layer.cornerRadius = 10
@@ -153,11 +162,6 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
         presenter?.setFriend()
     }
 
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        CoreDataManager.shared.saveContext()
-//    }
-
     // MARK: - Setup
 
     private func setupView() {
@@ -171,7 +175,6 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
                                                 target: self,
                                                 action: #selector(actionForBackButton))
         let rightBarButtonItem = UIBarButtonItem(customView: editAndSaveButton)
-
         navigationItem.leftBarButtonItem = leftBarButtonItem
         navigationItem.rightBarButtonItem = rightBarButtonItem
         navigationController?.navigationBar.tintColor = UIColor().hexStringToUIColor(hex: "FF575C")
@@ -188,7 +191,6 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
     }
 
     private func setupLayout() {
-
         containerForAvatar.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)
             make.height.width.equalTo(200)
@@ -269,6 +271,8 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
         }
     }
 
+    // MARK: - Methods
+
     private func saveButton() {
         editAndSaveButton.setTitle("Save", for: .normal)
         editAndSaveButton.setTitleColor(.white, for: .normal)
@@ -284,58 +288,36 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
         editAndSaveButton.backgroundColor = .white
     }
 
-    func fillSettings(with model: Friend?) {
-        nameTextField.text = model?.name
-        dateTextField.text = model?.date
-        genderMenuTextField.text = model?.gender
-        guard let date = model?.date else { return }
-        datePicker.date = convertStringToDate(string: date)
+    private func configurationToSave() {
+        dateTextField.text = String().convertDateToString(date: datePicker.date)
+        nameTextField.isUserInteractionEnabled = false
+        datePicker.isHidden = true
+        genderButton.isUserInteractionEnabled = false
+        genderImage.isHidden = true
+        isEditingButton = false
     }
 
-    func updateFriend() {
-//        model?.name = nameTextField.text
-//        model?.date = dateTextField.text
-//        model?.gender = genderMenuTextField.text
+    private func configurationToEdit() {
+        nameTextField.isUserInteractionEnabled = true
+        datePicker.isHidden = false
+        genderImage.isHidden = false
+        genderButton.isUserInteractionEnabled = true
+        isEditingButton = true
+    }
+
+    func updateFriendInformation() {
         guard let name = nameTextField.text,
-                let date = dateTextField.text,
-                let gender = genderMenuTextField.text,
-              let friend = presenter?.friend
-        else { return }
-        print(name, date, gender)
-        presenter?.updateFriend(friend: friend, name: name, date: date, gender: gender)
-    }
-
-    func convertDateToString(date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy"
-        return dateFormatter.string(from: date)
-    }
-
-    func convertStringToDate(string: String) -> Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy"
-        dateFormatter.date(from: string)
-        guard let dateString =  dateFormatter.date(from: string) else {
-            return Date()
-        }
-        return dateString
+              let gender = genderMenuTextField.text,
+              let dateOfBirth = dateTextField.text else { return }
+        presenter?.updateFriend(name: name, gender: gender, dateOfBirth: dateOfBirth)
     }
 
     @objc private func editAndSaveButtonPressed() {
         if isEditingButton {
-            dateTextField.text = convertDateToString(date: datePicker.date)
-            nameTextField.isUserInteractionEnabled = false
-            datePicker.isHidden = true
-            genderButton.isUserInteractionEnabled = false
-            genderImage.isHidden = true
-            isEditingButton = false
-            updateFriend()
+            configurationToSave()
+            updateFriendInformation()
         } else {
-            nameTextField.isUserInteractionEnabled = true
-            datePicker.isHidden = false
-            genderImage.isHidden = false
-            genderButton.isUserInteractionEnabled = true
-            isEditingButton = true
+            configurationToEdit()
         }
     }
 

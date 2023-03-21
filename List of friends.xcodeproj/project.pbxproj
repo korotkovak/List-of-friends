@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C1A6A4D129C9AC730058DA49 /* Friend+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A6A4CF29C9AC730058DA49 /* Friend+CoreDataClass.swift */; };
+		C1A6A4D229C9AC730058DA49 /* Friend+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A6A4D029C9AC730058DA49 /* Friend+CoreDataProperties.swift */; };
+		C1A6A4D429C9AFF10058DA49 /* String + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A6A4D329C9AFF10058DA49 /* String + Ext.swift */; };
 		C1FBBF3D29C455A800F3B649 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBBF3C29C455A800F3B649 /* AppDelegate.swift */; };
 		C1FBBF3F29C455A800F3B649 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBBF3E29C455A800F3B649 /* SceneDelegate.swift */; };
 		C1FBBF4129C455A800F3B649 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBBF4029C455A800F3B649 /* HomeViewController.swift */; };
@@ -17,8 +20,6 @@
 		C1FBBF6129C4808500F3B649 /* UIColor + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBBF6029C4808500F3B649 /* UIColor + Ext.swift */; };
 		C1FBBF6529C4828A00F3B649 /* UITextField + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBBF6429C4828A00F3B649 /* UITextField + Ext.swift */; };
 		C1FBBF6729C4840400F3B649 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBBF6629C4840400F3B649 /* FriendTableViewCell.swift */; };
-		C1FBBF6C29C4A28600F3B649 /* Friend+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBBF6A29C4A28600F3B649 /* Friend+CoreDataClass.swift */; };
-		C1FBBF6D29C4A28600F3B649 /* Friend+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBBF6B29C4A28600F3B649 /* Friend+CoreDataProperties.swift */; };
 		C1FBBF6F29C4AFCF00F3B649 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBBF6E29C4AFCF00F3B649 /* DetailViewController.swift */; };
 		C1FBBF7229C609DD00F3B649 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBBF7129C609DD00F3B649 /* HomePresenter.swift */; };
 		C1FBBF7729C6175900F3B649 /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBBF7629C6175900F3B649 /* DetailPresenter.swift */; };
@@ -26,6 +27,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C1A6A4CF29C9AC730058DA49 /* Friend+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Friend+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C1A6A4D029C9AC730058DA49 /* Friend+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Friend+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C1A6A4D329C9AFF10058DA49 /* String + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Ext.swift"; sourceTree = "<group>"; };
 		C1FBBF3929C455A800F3B649 /* List of friends.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "List of friends.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1FBBF3C29C455A800F3B649 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1FBBF3E29C455A800F3B649 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,8 +41,6 @@
 		C1FBBF6029C4808500F3B649 /* UIColor + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Ext.swift"; sourceTree = "<group>"; };
 		C1FBBF6429C4828A00F3B649 /* UITextField + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField + Ext.swift"; sourceTree = "<group>"; };
 		C1FBBF6629C4840400F3B649 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
-		C1FBBF6A29C4A28600F3B649 /* Friend+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Friend+CoreDataClass.swift"; sourceTree = "<group>"; };
-		C1FBBF6B29C4A28600F3B649 /* Friend+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Friend+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C1FBBF6E29C4AFCF00F3B649 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		C1FBBF7129C609DD00F3B649 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 		C1FBBF7629C6175900F3B649 /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
@@ -98,7 +100,8 @@
 				C1FBBF5529C4574A00F3B649 /* App */,
 				C1FBBF6829C49D4300F3B649 /* Extension */,
 				C1FBBF7A29C83D2900F3B649 /* Builder */,
-				C1FBBF6929C49D8100F3B649 /* CoreDataService */,
+				C1FBBF5A29C4649F00F3B649 /* Entity */,
+				C1FBBF6929C49D8100F3B649 /* Services */,
 				C1FBBF7029C609A800F3B649 /* HomeScene */,
 				C1FBBF7529C6143700F3B649 /* DetailScene */,
 			);
@@ -117,11 +120,11 @@
 		C1FBBF5A29C4649F00F3B649 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				C1FBBF6A29C4A28600F3B649 /* Friend+CoreDataClass.swift */,
-				C1FBBF6B29C4A28600F3B649 /* Friend+CoreDataProperties.swift */,
+				C1A6A4CF29C9AC730058DA49 /* Friend+CoreDataClass.swift */,
+				C1A6A4D029C9AC730058DA49 /* Friend+CoreDataProperties.swift */,
 			);
 			name = Entity;
-			path = ../../..;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		C1FBBF6829C49D4300F3B649 /* Extension */ = {
@@ -129,17 +132,17 @@
 			children = (
 				C1FBBF6029C4808500F3B649 /* UIColor + Ext.swift */,
 				C1FBBF6429C4828A00F3B649 /* UITextField + Ext.swift */,
+				C1A6A4D329C9AFF10058DA49 /* String + Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		C1FBBF6929C49D8100F3B649 /* CoreDataService */ = {
+		C1FBBF6929C49D8100F3B649 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				C1FBBF5A29C4649F00F3B649 /* Entity */,
 				C1FBBF5B29C464E400F3B649 /* CoreDataManager.swift */,
 			);
-			path = CoreDataService;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		C1FBBF7029C609A800F3B649 /* HomeScene */ = {
@@ -248,8 +251,6 @@
 				C1FBBF6529C4828A00F3B649 /* UITextField + Ext.swift in Sources */,
 				C1FBBF4129C455A800F3B649 /* HomeViewController.swift in Sources */,
 				C1FBBF7229C609DD00F3B649 /* HomePresenter.swift in Sources */,
-				C1FBBF6C29C4A28600F3B649 /* Friend+CoreDataClass.swift in Sources */,
-				C1FBBF6D29C4A28600F3B649 /* Friend+CoreDataProperties.swift in Sources */,
 				C1FBBF3D29C455A800F3B649 /* AppDelegate.swift in Sources */,
 				C1FBBF4729C455A800F3B649 /* List_of_friends.xcdatamodeld in Sources */,
 				C1FBBF5C29C464E400F3B649 /* CoreDataManager.swift in Sources */,
@@ -257,7 +258,10 @@
 				C1FBBF7729C6175900F3B649 /* DetailPresenter.swift in Sources */,
 				C1FBBF7929C8301400F3B649 /* ModuleBuilder.swift in Sources */,
 				C1FBBF3F29C455A800F3B649 /* SceneDelegate.swift in Sources */,
+				C1A6A4D129C9AC730058DA49 /* Friend+CoreDataClass.swift in Sources */,
+				C1A6A4D429C9AFF10058DA49 /* String + Ext.swift in Sources */,
 				C1FBBF6129C4808500F3B649 /* UIColor + Ext.swift in Sources */,
+				C1A6A4D229C9AC730058DA49 /* Friend+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

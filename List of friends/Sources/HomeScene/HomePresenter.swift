@@ -8,43 +8,42 @@
 import Foundation
 
 protocol HomeViewPresenterProtocol {
-    init(view: HomeViewProtocol, serviceCoreData: ServiceCoreData)
-    func addFriend(name: String)
     func fetchFriends()
+    func addNewFriend(name: String)
     func getFreindsCount() -> Int
     func getFriend(_ index: Int) -> Friend?
     func deleteFriend(_ index: Int)
 }
 
-final class HomePresenter: HomeViewPresenterProtocol {
+class HomePresenter: HomeViewPresenterProtocol {
     weak var view: HomeViewProtocol?
-    private var serviceCoreData: ServiceCoreData?
 
-    init(view: HomeViewProtocol, serviceCoreData: ServiceCoreData) {
+    init(view: HomeViewProtocol) {
         self.view = view
-        self.serviceCoreData = serviceCoreData
-    }
-
-    func addFriend(name: String) {
-        serviceCoreData?.addFriend(name: name, gender: "Male", date: "01.01.1976")
-        view?.showFriends()
     }
 
     func fetchFriends() {
-        serviceCoreData?.fetchFriends()
+        CoreDataManager.shared.fetchFriends()
+        view?.showFriends()
+    }
+
+    func addNewFriend(name: String) {
+        CoreDataManager.shared.addNewFriend(name: name,
+                                            gender: "Male",
+                                            dateOfBirth: "01.01.1976")
         view?.showFriends()
     }
 
     func getFreindsCount() -> Int {
-        serviceCoreData?.getFriendsCount() ?? 0
+        CoreDataManager.shared.friends?.count ?? 0
     }
 
     func getFriend(_ index: Int) -> Friend? {
-        serviceCoreData?.getFriend(index)
+        CoreDataManager.shared.friends?[index]
     }
 
     func deleteFriend(_ index: Int) {
-        serviceCoreData?.deleteFriend(index)
+        CoreDataManager.shared.deleteFriend(index)
         view?.showFriends()
     }
 }
