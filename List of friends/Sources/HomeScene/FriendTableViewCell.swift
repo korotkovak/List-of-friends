@@ -7,9 +7,14 @@
 
 import UIKit
 
+fileprivate enum Constants {
+    static let identifier = "FriendTableViewCell"
+    static let fatalError = "fatalError"
+}
+
 final class FriendTableViewCell: UITableViewCell {
 
-    static let identifier = "FriendTableViewCell"
+    static let identifier = Constants.identifier
 
     // MARK: - Init
 
@@ -19,6 +24,6 @@ final class FriendTableViewCell: UITableViewCell {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("Strings.fatalError")
+        fatalError(Constants.fatalError)
     }
 }

@@ -7,6 +7,19 @@
 
 import UIKit
 
+fileprivate enum Constants {
+    static let textFieldPlaceholder = "Write your friend's name here"
+    static let buttonSetTitle = "Add a friend"
+    static let alertActionTitle = "Ok!"
+    static let title = "List of friends"
+    static let showAlertTitle = "The field is empty"
+    static let showAlertMessage = "Enter your friend's name"
+}
+
+fileprivate enum Images {
+    static let textFieldLeftIcon = UIImage(named: "user_gray")
+}
+
 protocol HomeViewProtocol: AnyObject {
     func showFriends()
 }
@@ -28,21 +41,23 @@ final class HomeViewController: UIViewController, HomeViewProtocol {
 
     private lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Write your friend's name here"
+        textField.placeholder = Constants.textFieldPlaceholder
         textField.layer.cornerRadius = 10
-        textField.backgroundColor = UIColor().hexStringToUIColor(hex: "F8F8F8")
+        textField.backgroundColor = Colors.gray
         textField.returnKeyType = .done
         return textField
     }()
 
     private lazy var button: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor().hexStringToUIColor(hex: "FF575C")
+        button.backgroundColor = Colors.red
         button.layer.cornerRadius = 26
-        button.setTitle("Add a friend", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        button.addTarget(self, action: #selector(addFriendInTable), for: .touchUpInside)
+        button.setTitle(Constants.buttonSetTitle, for: .normal)
+        button.setTitleColor(Colors.white, for: .normal)
+        button.titleLabel?.font = Fonts.boldOfSize18
+        button.addTarget(self,
+                         action: #selector(addFriendInTable),
+                         for: .touchUpInside)
         return button
     }()
 
@@ -52,7 +67,8 @@ final class HomeViewController: UIViewController, HomeViewProtocol {
             message: message,
             preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: "Ok!", style: .cancel))
+        alert.addAction(UIAlertAction(title: Constants.alertActionTitle,
+                                      style: .cancel))
         self.present(alert, animated: true)
     }
 
@@ -76,8 +92,8 @@ final class HomeViewController: UIViewController, HomeViewProtocol {
     // MARK: - Setup
 
     private func setupView() {
-        view.backgroundColor = .white
-        title = "List of friends"
+        view.backgroundColor = Colors.white
+        title = Constants.title
     }
 
     private func setupHeirarchy() {
@@ -108,7 +124,7 @@ final class HomeViewController: UIViewController, HomeViewProtocol {
     }
 
     private func setupIcons() {
-        if let image = UIImage(named: "user_gray") {
+        if let image = Images.textFieldLeftIcon {
             textField.setLeftIcon(image)
         }
     }
@@ -121,8 +137,8 @@ final class HomeViewController: UIViewController, HomeViewProtocol {
 
     @objc private func addFriendInTable() {
         guard let name = textField.text, !name.isEmpty else {
-            return showAlert(title: "The field is empty",
-                             message: "Enter your friend's name")
+            return showAlert(title: Constants.showAlertTitle,
+                             message: Constants.showAlertMessage)
         }
         presenter?.addNewFriend(name: name)
         textField.text = ""

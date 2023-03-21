@@ -7,6 +7,36 @@
 
 import UIKit
 
+fileprivate enum Constants {
+    static let genderTextFieldText = "Gender"
+    static let genderMenuTextFieldText = "Other"
+    static let alertActionTitle = "Ok!"
+    static let title = "Editing a user"
+    static let saveButtonSetTitle = "Save"
+    static let editButtonSetTitle = "Edit"
+    static let showAlertTitle = "Changes not saved"
+    static let showAlertMessage = "Enter your friend's name"
+    static let imagePickerControllerInfoKey = "UIImagePickerControllerEditedImage"
+}
+
+fileprivate enum Images {
+    static let avatar = UIImage(named: "user_noactiv")
+    static let editIcon = UIImage(named: "edit-circle-noactiv")
+    static let genderImage = UIImage(systemName: "chevron.up.chevron.down")
+    static let backArrow = UIImage(named: "back-arrow")
+    static let nameTextFieldLeftIcon = UIImage(named: "user")
+    static let dateTextFieldLeftIcon = UIImage(named: "calendar")
+    static let genderTextFieldLeftIcon = UIImage(named: "gender")
+    static let editIconNoActiv = UIImage(named: "edit-circle-noactiv")
+    static let editIconActiv = UIImage(named: "edit-circle")
+}
+
+fileprivate enum GenderType: String {
+    case male = "Male"
+    case female = "Female"
+    case other = "Other"
+}
+
 protocol DetailViewProtocol: AnyObject {
     var friend: Friend? { get set }
     func updateFriendInformation()
@@ -40,7 +70,7 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
         var image = UIImageView()
         image.layer.cornerRadius = 200 / 2
         image.clipsToBounds = true
-        image.image = UIImage(named: "user_noactiv")
+        image.image = Images.avatar
         return image
     }()
 
@@ -55,15 +85,17 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
     private lazy var editIcon: UIImageView = {
         var image = UIImageView()
         image.clipsToBounds = true
-        image.image = UIImage(named: "edit-circle-noactiv")
+        image.image = Images.editIcon
         return image
     }()
 
     private lazy var photoEditingButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .clear
+        button.backgroundColor = Colors.clear
         button.isHidden = true
-        button.addTarget(self, action: #selector(photoEditingButtonPressed), for: .touchUpInside)
+        button.addTarget(self,
+                         action: #selector(photoEditingButtonPressed),
+                         for: .touchUpInside)
         return button
     }()
 
@@ -79,7 +111,7 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
         let textField = UITextField()
         textField.isUserInteractionEnabled = false
         textField.layer.cornerRadius = 10
-        textField.backgroundColor = UIColor().hexStringToUIColor(hex: "F8F8F8")
+        textField.backgroundColor = Colors.gray
         return textField
     }()
 
@@ -95,35 +127,37 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
         let textField = UITextField()
         textField.isUserInteractionEnabled = false
         textField.layer.cornerRadius = 10
-        textField.backgroundColor = UIColor().hexStringToUIColor(hex: "F8F8F8")
+        textField.backgroundColor = Colors.gray
         return textField
     }()
 
     private lazy var genderTextField: UITextField = {
         let textField = UITextField()
         textField.isUserInteractionEnabled = false
-        textField.text = "Gender"
+        textField.text = Constants.genderTextFieldText
         textField.layer.cornerRadius = 10
-        textField.backgroundColor = UIColor().hexStringToUIColor(hex: "F8F8F8")
+        textField.backgroundColor = Colors.gray
         return textField
     }()
 
     private lazy var editAndSaveButton: UIButton = {
         let button = UIButton()
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        button.titleLabel?.font = Fonts.boldOfSize14
         button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(editAndSaveButtonPressed), for: .touchUpInside)
+        button.addTarget(self,
+                         action: #selector(editAndSaveButtonPressed),
+                         for: .touchUpInside)
         return button
     }()
 
     private lazy var menu: UIMenu = {
-        let male = UIAction(title: "Male") { [weak self] action in
+        let male = UIAction(title: GenderType.male.rawValue) { [weak self] action in
             self?.genderMenuTextField.text = action.title
         }
-        let female = UIAction(title: "Female") { [weak self] action in
+        let female = UIAction(title: GenderType.female.rawValue) { [weak self] action in
             self?.genderMenuTextField.text = action.title
         }
-        let other = UIAction(title: "Other") { [weak self] action in
+        let other = UIAction(title: GenderType.other.rawValue) { [weak self] action in
             self?.genderMenuTextField.text = action.title
         }
         let elements: [UIAction] = [male, female, other]
@@ -134,9 +168,9 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
     private lazy var genderMenuTextField: UITextField = {
         let textField = UITextField()
         textField.isUserInteractionEnabled = false
-        textField.text = "Other"
-        textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        textField.textColor = .black
+        textField.text = Constants.genderMenuTextFieldText
+        textField.font = Fonts.regularOfSize16
+        textField.textColor = Colors.black
         return textField
     }()
 
@@ -144,17 +178,17 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
         let button = UIButton()
         button.isUserInteractionEnabled = false
         button.showsMenuAsPrimaryAction = true
-        button.backgroundColor = .clear
+        button.backgroundColor = Colors.clear
         button.menu = menu
         return button
     }()
 
     private lazy var genderImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "chevron.up.chevron.down")
+        imageView.image = Images.genderImage
         imageView.clipsToBounds = true
         imageView.isHidden = true
-        imageView.tintColor = UIColor().hexStringToUIColor(hex: "FF575C")
+        imageView.tintColor = Colors.red
         return imageView
     }()
 
@@ -174,7 +208,8 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
             message: message,
             preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: "Ok!", style: .cancel))
+        alert.addAction(UIAlertAction(title: Constants.alertActionTitle,
+                                      style: .cancel))
         self.present(alert, animated: true)
     }
 
@@ -194,18 +229,18 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
 
     private func setupView() {
         view.backgroundColor = .white
-        title = "Editing a user"
+        title = Constants.title
     }
 
     private func setupNavigationBar() {
-        let leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "back-arrow"),
+        let leftBarButtonItem = UIBarButtonItem(image: Images.backArrow,
                                                 style: .done,
                                                 target: self,
                                                 action: #selector(actionForBackButton))
         let rightBarButtonItem = UIBarButtonItem(customView: editAndSaveButton)
         navigationItem.leftBarButtonItem = leftBarButtonItem
         navigationItem.rightBarButtonItem = rightBarButtonItem
-        navigationController?.navigationBar.tintColor = UIColor().hexStringToUIColor(hex: "FF575C")
+        navigationController?.navigationBar.tintColor = Colors.red
     }
 
     private func setupHeirarchy() {
@@ -292,15 +327,15 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
     }
 
     private func setupIcons() {
-        if let image = UIImage(named: "user") {
+        if let image = Images.nameTextFieldLeftIcon {
             nameTextField.setLeftIcon(image)
         }
 
-        if let image = UIImage(named: "calendar") {
+        if let image = Images.dateTextFieldLeftIcon {
             dateTextField.setLeftIcon(image)
         }
 
-        if let image = UIImage(named: "gender") {
+        if let image = Images.genderTextFieldLeftIcon {
             genderTextField.setLeftIcon(image)
         }
     }
@@ -308,18 +343,18 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
     // MARK: - Methods
 
     private func saveButton() {
-        editAndSaveButton.setTitle("Save", for: .normal)
-        editAndSaveButton.setTitleColor(.white, for: .normal)
-        editAndSaveButton.backgroundColor = UIColor().hexStringToUIColor(hex: "FF575C")
+        editAndSaveButton.setTitle(Constants.saveButtonSetTitle, for: .normal)
+        editAndSaveButton.setTitleColor(Colors.white, for: .normal)
+        editAndSaveButton.backgroundColor = Colors.red
         editAndSaveButton.layer.borderWidth = 0
     }
 
     private func editButton() {
-        editAndSaveButton.setTitle("Edit", for: .normal)
-        editAndSaveButton.setTitleColor(.black, for: .normal)
+        editAndSaveButton.setTitle(Constants.editButtonSetTitle, for: .normal)
+        editAndSaveButton.setTitleColor(Colors.black, for: .normal)
         editAndSaveButton.layer.borderWidth = 1
-        editAndSaveButton.layer.borderColor = UIColor.black.cgColor
-        editAndSaveButton.backgroundColor = .white
+        editAndSaveButton.layer.borderColor = Colors.black.cgColor
+        editAndSaveButton.backgroundColor = Colors.white
     }
 
     private func configurationToSave() {
@@ -329,7 +364,7 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
         genderButton.isUserInteractionEnabled = false
         genderImage.isHidden = true
         photoEditingButton.isHidden = true
-        editIcon.image = UIImage(named: "edit-circle-noactiv")
+        editIcon.image = Images.editIconNoActiv
         isEditingButton = false
     }
 
@@ -338,7 +373,7 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
         datePicker.isHidden = false
         genderImage.isHidden = false
         genderButton.isUserInteractionEnabled = true
-        editIcon.image = UIImage(named: "edit-circle")
+        editIcon.image = Images.editIconActiv
         photoEditingButton.isHidden = false
         isEditingButton = true
     }
@@ -356,8 +391,8 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
 
     @objc private func editAndSaveButtonPressed() {
         guard let name = nameTextField.text, !name.isEmpty else {
-            return showAlert(title: "Changes not saved",
-                             message: "Enter your friend's name")
+            return showAlert(title: Constants.alertActionTitle,
+                             message: Constants.showAlertMessage)
         }
 
         guard isEditingButton else {
@@ -386,7 +421,9 @@ extension DetailViewController: UIImagePickerControllerDelegate,
         _ picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
     ) {
-        let infoKey = UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")
+        let infoKey = UIImagePickerController.InfoKey(
+            rawValue: Constants.imagePickerControllerInfoKey
+        )
         guard let image = info[infoKey] as? UIImage else { return }
         avatar.image = image
         picker.dismiss(animated: true)
