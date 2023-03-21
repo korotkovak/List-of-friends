@@ -9,7 +9,10 @@ import Foundation
 
 protocol DetailViewPresenterProtocol {
     func setFriend()
-    func updateFriend(name: String, gender: String, dateOfBirth: String)
+    func updateFriend(avatar: Data,
+                      name: String,
+                      gender: String,
+                      dateOfBirth: String)
 }
 
 final class DetailViewPresenter: DetailViewPresenterProtocol {
@@ -25,7 +28,11 @@ final class DetailViewPresenter: DetailViewPresenterProtocol {
         view?.friend = friend
     }
 
-    func updateFriend(name: String, gender: String, dateOfBirth: String) {
+    func updateFriend(avatar: Data,
+                      name: String,
+                      gender: String,
+                      dateOfBirth: String) {
+        friend?.avatar = avatar
         friend?.name = name
         friend?.gender = gender
         friend?.dateOfBirth = dateOfBirth

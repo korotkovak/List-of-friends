@@ -23,6 +23,8 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
             dateTextField.text = friend?.dateOfBirth
             guard let date = friend?.dateOfBirth else { return }
             datePicker.date = String().convertStringToDate(string: date)
+            guard let image = friend?.avatar else { return }
+            avatar.image = UIImage(data: image)
         }
     }
 
@@ -38,15 +40,31 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
         var image = UIImageView()
         image.layer.cornerRadius = 200 / 2
         image.clipsToBounds = true
-        image.image = UIImage(named: "ava")
+        image.image = UIImage(named: "user_noactiv")
         return image
+    }()
+
+    private lazy var imagePickerController: UIImagePickerController = {
+        let vc = UIImagePickerController()
+        vc.sourceType = .photoLibrary
+        vc.delegate = self
+        vc.allowsEditing = true
+        return vc
     }()
 
     private lazy var editIcon: UIImageView = {
         var image = UIImageView()
         image.clipsToBounds = true
-        image.image = UIImage(named: "edit-circle")
+        image.image = UIImage(named: "edit-circle-noactiv")
         return image
+    }()
+
+    private lazy var photoEditingButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .clear
+        button.isHidden = true
+        button.addTarget(self, action: #selector(photoEditingButtonPressed), for: .touchUpInside)
+        return button
     }()
 
     private lazy var containerForAvatar: UIView = {
@@ -198,6 +216,7 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
         view.addSubview(datePicker)
         view.addSubview(stack)
         view.addSubview(genderButton)
+        view.addSubview(photoEditingButton)
     }
 
     private func setupLayout() {
@@ -213,6 +232,11 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
         }
 
         editIcon.snp.makeConstraints { make in
+            make.right.bottom.equalTo(containerForAvatar).offset(-10)
+            make.height.width.equalTo(40)
+        }
+
+        photoEditingButton.snp.makeConstraints { make in
             make.right.bottom.equalTo(containerForAvatar).offset(-10)
             make.height.width.equalTo(40)
         }
@@ -304,6 +328,8 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
         datePicker.isHidden = true
         genderButton.isUserInteractionEnabled = false
         genderImage.isHidden = true
+        photoEditingButton.isHidden = true
+        editIcon.image = UIImage(named: "edit-circle-noactiv")
         isEditingButton = false
     }
 
@@ -312,20 +338,26 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
         datePicker.isHidden = false
         genderImage.isHidden = false
         genderButton.isUserInteractionEnabled = true
+        editIcon.image = UIImage(named: "edit-circle")
+        photoEditingButton.isHidden = false
         isEditingButton = true
     }
 
     func updateFriendInformation() {
-        guard let name = nameTextField.text, !name.isEmpty,
+        guard let avatar = avatar.image?.pngData(),
+              let name = nameTextField.text, !name.isEmpty,
               let gender = genderMenuTextField.text,
               let dateOfBirth = dateTextField.text else { return }
-        presenter?.updateFriend(name: name, gender: gender, dateOfBirth: dateOfBirth)
+        presenter?.updateFriend(avatar: avatar,
+                                name: name,
+                                gender: gender,
+                                dateOfBirth: dateOfBirth)
     }
 
     @objc private func editAndSaveButtonPressed() {
         guard let name = nameTextField.text, !name.isEmpty else {
             return showAlert(title: "Changes not saved",
-                            message: "Enter your friend's name")
+                             message: "Enter your friend's name")
         }
 
         guard isEditingButton else {
@@ -338,6 +370,30 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
 
     @objc private func actionForBackButton() {
         navigationController?.popViewController(animated: true)
+    }
+
+    @objc private func photoEditingButtonPressed() {
+        present(imagePickerController, animated: true)
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate
+
+extension DetailViewController: UIImagePickerControllerDelegate,
+                                UINavigationControllerDelegate {
+
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
+    ) {
+        let infoKey = UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")
+        guard let image = info[infoKey] as? UIImage else { return }
+        avatar.image = image
+        picker.dismiss(animated: true)
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
     }
 }
 

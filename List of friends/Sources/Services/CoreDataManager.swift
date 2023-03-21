@@ -48,7 +48,7 @@ class CoreDataManager {
         }
     }
 
-    func addNewFriend(name: String, gender: String, dateOfBirth: String) {
+    func addNewFriend(name: String, gender: String,  dateOfBirth: String) {
         let friend = Friend(context: context)
         friend.name = name
         friend.gender = gender

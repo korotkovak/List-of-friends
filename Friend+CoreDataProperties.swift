@@ -13,6 +13,7 @@ extension Friend {
     @NSManaged public var dateOfBirth: String?
     @NSManaged public var gender: String?
     @NSManaged public var name: String?
+    @NSManaged public var avatar: Data?
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Friend> {
         return NSFetchRequest<Friend>(entityName: "Friend")
