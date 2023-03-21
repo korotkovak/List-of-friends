@@ -46,6 +46,16 @@ final class HomeViewController: UIViewController, HomeViewProtocol {
         return button
     }()
 
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Ok!", style: .cancel))
+        self.present(alert, animated: true)
+    }
+
     // MARK: - Init
 
     override func viewWillAppear(_ animated: Bool) {
@@ -110,7 +120,10 @@ final class HomeViewController: UIViewController, HomeViewProtocol {
     }
 
     @objc private func addFriendInTable() {
-        guard let name = textField.text else { return }
+        guard let name = textField.text, !name.isEmpty else {
+            return showAlert(title: "The field is empty",
+                             message: "Enter your friend's name")
+        }
         presenter?.addNewFriend(name: name)
         textField.text = ""
     }
@@ -130,6 +143,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         ) as? FriendTableViewCell else {
             return UITableViewCell()
         }
+
         let friend = presenter?.getFriend(indexPath.row)
         cell.textLabel?.text = friend?.name
         return cell
@@ -138,9 +152,8 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    commit editingStyle: UITableViewCell.EditingStyle,
                    forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            presenter?.deleteFriend(indexPath.row)
-        }
+        guard editingStyle == .delete else { return }
+        presenter?.deleteFriend(indexPath.row)
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

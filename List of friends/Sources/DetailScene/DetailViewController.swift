@@ -150,6 +150,16 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
         return stack
     }()
 
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Ok!", style: .cancel))
+        self.present(alert, animated: true)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -306,19 +316,24 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
     }
 
     func updateFriendInformation() {
-        guard let name = nameTextField.text,
+        guard let name = nameTextField.text, !name.isEmpty,
               let gender = genderMenuTextField.text,
               let dateOfBirth = dateTextField.text else { return }
         presenter?.updateFriend(name: name, gender: gender, dateOfBirth: dateOfBirth)
     }
 
     @objc private func editAndSaveButtonPressed() {
-        if isEditingButton {
-            configurationToSave()
-            updateFriendInformation()
-        } else {
-            configurationToEdit()
+        guard let name = nameTextField.text, !name.isEmpty else {
+            return showAlert(title: "Changes not saved",
+                            message: "Enter your friend's name")
         }
+
+        guard isEditingButton else {
+            return configurationToEdit()
+        }
+        
+        configurationToSave()
+        updateFriendInformation()
     }
 
     @objc private func actionForBackButton() {
