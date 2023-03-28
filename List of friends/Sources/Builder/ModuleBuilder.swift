@@ -22,7 +22,7 @@ class ModuleBuilder: BuilderProtocol {
 
     static func createDetailModule(with model: Friend) -> UIViewController {
         let view = DetailViewController()
-        let presenter = DetailViewPresenter(view: view, friend: model)
+        let presenter = DetailPresenter(view: view, friend: model)
         view.presenter = presenter
         return view
     }

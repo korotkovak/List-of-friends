@@ -8,18 +8,20 @@
 import Foundation
 import CoreData
 
-class CoreDataManager {
+final class CoreDataManager {
 
     static let shared = CoreDataManager()
     var friends: [Friend]?
 
     private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "List_of_friends")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+
+        container.loadPersistentStores { storeDescription, error in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
-        })
+        }
+
         return container
     }()
 
@@ -29,6 +31,7 @@ class CoreDataManager {
 
     private func saveContext () {
         let context = persistentContainer.viewContext
+
         if context.hasChanges {
             do {
                 try context.save()
@@ -41,6 +44,7 @@ class CoreDataManager {
 
     func fetchFriends() {
         let fetchRequest: NSFetchRequest<Friend> = Friend.fetchRequest()
+
         do {
             friends = try context.fetch(fetchRequest)
         } catch {
@@ -58,6 +62,7 @@ class CoreDataManager {
 
     func deleteFriend(_ index: Int) {
         guard let friend = friends?[index] else { return }
+
         context.delete(friend)
         updateFriend()
     }

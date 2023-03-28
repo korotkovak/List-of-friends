@@ -18,7 +18,9 @@ extension String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy"
         dateFormatter.date(from: string)
-        guard let dateString =  dateFormatter.date(from: string) else {
+
+        guard let dateString =  dateFormatter.date(from: string)
+        else {
             return Date()
         }
         return dateString
