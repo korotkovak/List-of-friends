@@ -7,19 +7,12 @@
 
 import Foundation
 
-protocol DetailViewPresenterProtocol {
-    func setFriend()
-    func updateFriend(avatar: Data,
-                      name: String,
-                      gender: String,
-                      dateOfBirth: String)
-}
+final class DetailPresenter: DetailPresenterInput {
 
-final class DetailViewPresenter: DetailViewPresenterProtocol {
-    weak var view: DetailViewProtocol?
+    weak var view: DetailPresenterOutput?
     private var friend: Friend?
 
-    init(view: DetailViewProtocol, friend: Friend) {
+    init(view: DetailPresenterOutput, friend: Friend) {
         self.view = view
         self.friend = friend
     }
@@ -32,6 +25,7 @@ final class DetailViewPresenter: DetailViewPresenterProtocol {
                       name: String,
                       gender: String,
                       dateOfBirth: String) {
+
         friend?.avatar = avatar
         friend?.name = name
         friend?.gender = gender

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C18CF58729D2F1F300CCC443 /* HomePresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18CF58629D2F1F300CCC443 /* HomePresenterProtocol.swift */; };
+		C18CF58B29D2F24400CCC443 /* DetailPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18CF58A29D2F24400CCC443 /* DetailPresenterProtocol.swift */; };
 		C1A6A4D429C9AFF10058DA49 /* String + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A6A4D329C9AFF10058DA49 /* String + Ext.swift */; };
 		C1A6A4DB29C9D6FA0058DA49 /* Friend+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A6A4D929C9D6FA0058DA49 /* Friend+CoreDataClass.swift */; };
 		C1A6A4DC29C9D6FA0058DA49 /* Friend+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A6A4DA29C9D6FA0058DA49 /* Friend+CoreDataProperties.swift */; };
@@ -29,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C18CF58629D2F1F300CCC443 /* HomePresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenterProtocol.swift; sourceTree = "<group>"; };
+		C18CF58A29D2F24400CCC443 /* DetailPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenterProtocol.swift; sourceTree = "<group>"; };
 		C1A6A4D329C9AFF10058DA49 /* String + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Ext.swift"; sourceTree = "<group>"; };
 		C1A6A4D929C9D6FA0058DA49 /* Friend+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Friend+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C1A6A4DA29C9D6FA0058DA49 /* Friend+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Friend+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -63,6 +67,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C18CF58429D2F1D000CCC443 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C1FBBF4029C455A800F3B649 /* HomeViewController.swift */,
+				C1FBBF6629C4840400F3B649 /* FriendTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C18CF58529D2F1DE00CCC443 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				C1FBBF7129C609DD00F3B649 /* HomePresenter.swift */,
+				C18CF58629D2F1F300CCC443 /* HomePresenterProtocol.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		C18CF58829D2F21D00CCC443 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C1FBBF6E29C4AFCF00F3B649 /* DetailViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C18CF58929D2F22400CCC443 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		C1A6A4DD29C9E1590058DA49 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,9 +199,8 @@
 		C1FBBF7029C609A800F3B649 /* HomeScene */ = {
 			isa = PBXGroup;
 			children = (
-				C1FBBF7129C609DD00F3B649 /* HomePresenter.swift */,
-				C1FBBF4029C455A800F3B649 /* HomeViewController.swift */,
-				C1FBBF6629C4840400F3B649 /* FriendTableViewCell.swift */,
+				C18CF58429D2F1D000CCC443 /* Views */,
+				C18CF58529D2F1DE00CCC443 /* Presenter */,
 			);
 			path = HomeScene;
 			sourceTree = "<group>";
@@ -172,8 +208,10 @@
 		C1FBBF7529C6143700F3B649 /* DetailScene */ = {
 			isa = PBXGroup;
 			children = (
+				C18CF58829D2F21D00CCC443 /* Views */,
+				C18CF58929D2F22400CCC443 /* Presenter */,
 				C1FBBF7629C6175900F3B649 /* DetailPresenter.swift */,
-				C1FBBF6E29C4AFCF00F3B649 /* DetailViewController.swift */,
+				C18CF58A29D2F24400CCC443 /* DetailPresenterProtocol.swift */,
 			);
 			path = DetailScene;
 			sourceTree = "<group>";
@@ -263,6 +301,8 @@
 			files = (
 				C1A6A4DF29C9E16C0058DA49 /* Fonts.swift in Sources */,
 				C1FBBF6F29C4AFCF00F3B649 /* DetailViewController.swift in Sources */,
+				C18CF58B29D2F24400CCC443 /* DetailPresenterProtocol.swift in Sources */,
+				C18CF58729D2F1F300CCC443 /* HomePresenterProtocol.swift in Sources */,
 				C1FBBF6529C4828A00F3B649 /* UITextField + Ext.swift in Sources */,
 				C1A6A4E129C9E1740058DA49 /* Colors.swift in Sources */,
 				C1A6A4DC29C9D6FA0058DA49 /* Friend+CoreDataProperties.swift in Sources */,
