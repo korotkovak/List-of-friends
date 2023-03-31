@@ -17,7 +17,8 @@ final class HomeViewController: UIViewController, HomePresenterOutput {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.register(
             FriendTableViewCell.self,
-            forCellReuseIdentifier: FriendTableViewCell.identifier)
+            forCellReuseIdentifier: FriendTableViewCell.identifier
+        )
         tableView.dataSource = self
         tableView.delegate = self
         return tableView
@@ -42,7 +43,8 @@ final class HomeViewController: UIViewController, HomePresenterOutput {
         button.addTarget(
             self,
             action: #selector(addFriendInTable),
-            for: .touchUpInside)
+            for: .touchUpInside
+        )
         return button
     }()
     
@@ -50,12 +52,15 @@ final class HomeViewController: UIViewController, HomePresenterOutput {
         let alert = UIAlertController(
             title: title,
             message: message,
-            preferredStyle: .alert)
+            preferredStyle: .alert
+        )
         
         alert.addAction(
             UIAlertAction(
                 title: Constants.alertActionTitle,
-                style: .cancel))
+                style: .cancel
+            )
+        )
         
         self.present(alert, animated: true)
     }
@@ -112,9 +117,9 @@ final class HomeViewController: UIViewController, HomePresenterOutput {
     }
     
     private func setupIcons() {
-        if let image = Images.textFieldLeftIcon {
-            textField.setLeftIcon(image)
-        }
+        guard let imageTextField = Images.textFieldLeftIcon
+        else { return }
+        textField.setLeftIcon(imageTextField)
     }
     
     // MARK: - Methods
@@ -128,7 +133,8 @@ final class HomeViewController: UIViewController, HomePresenterOutput {
         else {
             return showAlert(
                 title: Constants.showAlertTitle,
-                message: Constants.showAlertMessage)
+                message: Constants.showAlertMessage
+            )
         }
         
         presenter?.addNewFriend(name: name)
@@ -140,19 +146,23 @@ final class HomeViewController: UIViewController, HomePresenterOutput {
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView,
-                   numberOfRowsInSection section: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         
         return presenter?.getFreindsCount() ?? 0
     }
     
-    func tableView(_ tableView: UITableView,
-                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: FriendTableViewCell.identifier,
-            for: indexPath) as? FriendTableViewCell
-        else {
+            for: indexPath
+        ) as? FriendTableViewCell else {
             return UITableViewCell()
         }
         
@@ -161,21 +171,25 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    func tableView(_ tableView: UITableView,
-                   commit editingStyle: UITableViewCell.EditingStyle,
-                   forRowAt indexPath: IndexPath) {
+    func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
         
         guard editingStyle == .delete else { return }
         presenter?.deleteFriend(indexPath.row)
     }
     
-    func tableView(_ tableView: UITableView,
-                   didSelectRowAt indexPath: IndexPath) {
+    func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
         
         tableView.deselectRow(at: indexPath, animated: true)
         guard let friend = presenter?.getFriend(indexPath.row) else { return }
         
-        let detailViewController = ModuleBuilder.createDetailModule(with: friend)
+        let detailViewController = ModuleBuilder.shared.createDetailModule(with: friend)
         navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
@@ -197,7 +211,8 @@ extension HomeViewController: UITextFieldDelegate {
     private func hideKeyboardWhenTappedAround() {
         let tap = UITapGestureRecognizer(
             target: self,
-            action: #selector(dismissKeyboard))
+            action: #selector(dismissKeyboard)
+        )
         
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)

@@ -14,8 +14,10 @@ protocol DetailPresenterOutput: AnyObject {
 
 protocol DetailPresenterInput {
     func setFriend()
-    func updateFriend(avatar: Data,
-                      name: String,
-                      gender: String,
-                      dateOfBirth: String)
+    func updateFriend(
+        avatar: Data,
+        name: String,
+        gender: String,
+        dateOfBirth: String
+    )
 }
