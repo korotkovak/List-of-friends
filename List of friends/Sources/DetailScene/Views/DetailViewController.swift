@@ -69,7 +69,8 @@ final class DetailViewController: UIViewController, DetailPresenterOutput {
         button.addTarget(
             self,
             action: #selector(photoEditingButtonPressed),
-            for: .touchUpInside)
+            for: .touchUpInside
+        )
         return button
     }()
     
@@ -121,7 +122,8 @@ final class DetailViewController: UIViewController, DetailPresenterOutput {
         button.addTarget(
             self,
             action: #selector(editAndSaveButtonPressed),
-            for: .touchUpInside)
+            for: .touchUpInside
+        )
         return button
     }()
     
@@ -217,7 +219,8 @@ final class DetailViewController: UIViewController, DetailPresenterOutput {
             image: Images.backArrow,
             style: .done,
             target: self,
-            action: #selector(actionForBackButton))
+            action: #selector(actionForBackButton)
+        )
         
         let rightBarButtonItem = UIBarButtonItem(customView: editAndSaveButton)
         
@@ -310,17 +313,17 @@ final class DetailViewController: UIViewController, DetailPresenterOutput {
     }
     
     private func setupIcons() {
-        if let image = Images.nameTextFieldLeftIcon {
-            nameTextField.setLeftIcon(image)
-        }
-        
-        if let image = Images.dateTextFieldLeftIcon {
-            dateTextField.setLeftIcon(image)
-        }
-        
-        if let image = Images.genderTextFieldLeftIcon {
-            genderTextField.setLeftIcon(image)
-        }
+        guard let imageNameTextField = Images.nameTextFieldLeftIcon
+        else { return }
+        nameTextField.setLeftIcon(imageNameTextField)
+
+        guard let imageDateTextField = Images.dateTextFieldLeftIcon
+        else { return }
+        dateTextField.setLeftIcon(imageDateTextField)
+
+        guard let imageGenderTextField = Images.genderTextFieldLeftIcon
+        else { return }
+        genderTextField.setLeftIcon(imageGenderTextField)
     }
     
     // MARK: - Methods
@@ -372,7 +375,8 @@ final class DetailViewController: UIViewController, DetailPresenterOutput {
             avatar: avatar,
             name: name,
             gender: gender,
-            dateOfBirth: dateOfBirth)
+            dateOfBirth: dateOfBirth
+        )
     }
     
     @objc private func editAndSaveButtonPressed() {
@@ -380,7 +384,8 @@ final class DetailViewController: UIViewController, DetailPresenterOutput {
         else {
             return showAlert(
                 title: Constants.alertActionTitle,
-                message: Constants.showAlertMessage)
+                message: Constants.showAlertMessage
+            )
         }
         
         guard isEditingButton else {
@@ -407,16 +412,16 @@ extension DetailViewController: UIImagePickerControllerDelegate,
     
     func imagePickerController(
         _ picker: UIImagePickerController,
-        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-            
-            let infoKey = UIImagePickerController.InfoKey(
-                rawValue: Constants.imagePickerControllerInfoKey)
-            
-            guard let image = info[infoKey] as? UIImage else { return }
-            
-            avatar.image = image
-            picker.dismiss(animated: true)
-        }
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+    ) {
+        let infoKey = UIImagePickerController.InfoKey(
+            rawValue: Constants.imagePickerControllerInfoKey)
+
+        guard let image = info[infoKey] as? UIImage else { return }
+
+        avatar.image = image
+        picker.dismiss(animated: true)
+    }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
@@ -440,7 +445,8 @@ extension DetailViewController: UITextFieldDelegate {
     private func hideKeyboardWhenTappedAround() {
         let tap = UITapGestureRecognizer(
             target: self,
-            action: #selector(dismissKeyboard))
+            action: #selector(dismissKeyboard)
+        )
         
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)

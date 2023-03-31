@@ -21,11 +21,12 @@ final class DetailPresenter: DetailPresenterInput {
         view?.friend = friend
     }
 
-    func updateFriend(avatar: Data,
-                      name: String,
-                      gender: String,
-                      dateOfBirth: String) {
-
+    func updateFriend(
+        avatar: Data,
+        name: String,
+        gender: String,
+        dateOfBirth: String
+    ) {
         friend?.avatar = avatar
         friend?.name = name
         friend?.gender = gender
