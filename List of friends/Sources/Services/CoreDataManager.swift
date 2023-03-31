@@ -8,9 +8,8 @@
 import Foundation
 import CoreData
 
-final class CoreDataManager {
+final class CoreDataManager: CoreDataProtocol {
 
-    static let shared = CoreDataManager()
     var friends: [Friend]?
 
     private lazy var persistentContainer: NSPersistentContainer = {

@@ -8,20 +8,25 @@
 import Foundation
 
 class HomePresenter: HomePresenterInput {
-
-    weak var view: HomePresenterOutput?
     
-    init(view: HomePresenterOutput) {
+    private weak var view: HomePresenterOutput?
+    private let dataManager: CoreDataProtocol?
+    
+    init(
+        view: HomePresenterOutput,
+        dataManager: CoreDataProtocol
+    ) {
         self.view = view
+        self.dataManager = dataManager
     }
     
     func fetchFriends() {
-        CoreDataManager.shared.fetchFriends()
+        dataManager?.fetchFriends()
         view?.showFriends()
     }
     
     func addNewFriend(name: String) {
-        CoreDataManager.shared.addNewFriend(
+        dataManager?.addNewFriend(
             name: name,
             gender: "Male",
             dateOfBirth: "01.01.1976")
@@ -30,15 +35,15 @@ class HomePresenter: HomePresenterInput {
     }
     
     func getFreindsCount() -> Int {
-        CoreDataManager.shared.friends?.count ?? 0
+        dataManager?.friends?.count ?? 0
     }
     
     func getFriend(_ index: Int) -> Friend? {
-        CoreDataManager.shared.friends?[index]
+        dataManager?.friends?[index]
     }
     
     func deleteFriend(_ index: Int) {
-        CoreDataManager.shared.deleteFriend(index)
+        dataManager?.deleteFriend(index)
         view?.showFriends()
     }
 }

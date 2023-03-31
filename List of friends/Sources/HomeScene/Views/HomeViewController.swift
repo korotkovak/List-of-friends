@@ -189,7 +189,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let friend = presenter?.getFriend(indexPath.row) else { return }
         
-        let detailViewController = ModuleBuilder.createDetailModule(with: friend)
+        let detailViewController = ModuleBuilder.shared.createDetailModule(with: friend)
         navigationController?.pushViewController(detailViewController, animated: true)
     }
 }

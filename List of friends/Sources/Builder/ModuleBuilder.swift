@@ -7,22 +7,35 @@
 
 import UIKit
 
-protocol BuilderProtocol {
-    static func createHomeModule() -> UIViewController
-    static func createDetailModule(with model: Friend) -> UIViewController
-}
-
 class ModuleBuilder: BuilderProtocol {
-    static func createHomeModule() -> UIViewController {
+
+    static var shared: ModuleBuilder = {
+        ModuleBuilder()
+    }()
+
+    private lazy var dataManager: CoreDataManager = {
+        CoreDataManager()
+    }()
+
+    lazy var homeModule: UIViewController = {
         let view = HomeViewController()
-        let presenter = HomePresenter(view: view)
+        let presenter = HomePresenter(
+            view: view,
+            dataManager: dataManager
+        )
+
         view.presenter = presenter
         return view
-    }
+    }()
 
-    static func createDetailModule(with model: Friend) -> UIViewController {
+    func createDetailModule(with model: Friend) -> UIViewController {
         let view = DetailViewController()
-        let presenter = DetailPresenter(view: view, friend: model)
+        let presenter = DetailPresenter(
+            view: view,
+            dataManager: dataManager,
+            friend: model
+        )
+
         view.presenter = presenter
         return view
     }

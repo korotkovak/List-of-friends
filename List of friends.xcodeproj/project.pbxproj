@@ -14,6 +14,8 @@
 		C1A6A4DC29C9D6FA0058DA49 /* Friend+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A6A4DA29C9D6FA0058DA49 /* Friend+CoreDataProperties.swift */; };
 		C1A6A4DF29C9E16C0058DA49 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A6A4DE29C9E16C0058DA49 /* Fonts.swift */; };
 		C1A6A4E129C9E1740058DA49 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A6A4E029C9E1740058DA49 /* Colors.swift */; };
+		C1F4358229D730D400969E98 /* CoreDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F4358129D730D400969E98 /* CoreDataProtocol.swift */; };
+		C1F4358429D732C400969E98 /* BuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F4358329D732C400969E98 /* BuilderProtocol.swift */; };
 		C1FBBF3D29C455A800F3B649 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBBF3C29C455A800F3B649 /* AppDelegate.swift */; };
 		C1FBBF3F29C455A800F3B649 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBBF3E29C455A800F3B649 /* SceneDelegate.swift */; };
 		C1FBBF4129C455A800F3B649 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBBF4029C455A800F3B649 /* HomeViewController.swift */; };
@@ -38,6 +40,8 @@
 		C1A6A4DA29C9D6FA0058DA49 /* Friend+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Friend+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C1A6A4DE29C9E16C0058DA49 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		C1A6A4E029C9E1740058DA49 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		C1F4358129D730D400969E98 /* CoreDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProtocol.swift; sourceTree = "<group>"; };
+		C1F4358329D732C400969E98 /* BuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuilderProtocol.swift; sourceTree = "<group>"; };
 		C1FBBF3929C455A800F3B649 /* List of friends.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "List of friends.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1FBBF3C29C455A800F3B649 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1FBBF3E29C455A800F3B649 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -192,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				C1FBBF5B29C464E400F3B649 /* CoreDataManager.swift */,
+				C1F4358129D730D400969E98 /* CoreDataProtocol.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -220,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				C1FBBF7829C8301400F3B649 /* ModuleBuilder.swift */,
+				C1F4358329D732C400969E98 /* BuilderProtocol.swift */,
 			);
 			path = Builder;
 			sourceTree = "<group>";
@@ -305,10 +311,12 @@
 				C18CF58729D2F1F300CCC443 /* HomePresenterProtocol.swift in Sources */,
 				C1FBBF6529C4828A00F3B649 /* UITextField + Ext.swift in Sources */,
 				C1A6A4E129C9E1740058DA49 /* Colors.swift in Sources */,
+				C1F4358429D732C400969E98 /* BuilderProtocol.swift in Sources */,
 				C1A6A4DC29C9D6FA0058DA49 /* Friend+CoreDataProperties.swift in Sources */,
 				C1FBBF4129C455A800F3B649 /* HomeViewController.swift in Sources */,
 				C1FBBF7229C609DD00F3B649 /* HomePresenter.swift in Sources */,
 				C1FBBF3D29C455A800F3B649 /* AppDelegate.swift in Sources */,
+				C1F4358229D730D400969E98 /* CoreDataProtocol.swift in Sources */,
 				C1A6A4DB29C9D6FA0058DA49 /* Friend+CoreDataClass.swift in Sources */,
 				C1FBBF4729C455A800F3B649 /* List_of_friends.xcdatamodeld in Sources */,
 				C1FBBF5C29C464E400F3B649 /* CoreDataManager.swift in Sources */,
